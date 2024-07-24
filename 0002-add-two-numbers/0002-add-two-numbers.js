@@ -1,6 +1,6 @@
 var addTwoNumbers = function(l1, l2) {
     let carry = 0;
-    let head = new ListNode();  // Create a dummy node to simplify the process
+    let head = new ListNode();
     let current = head;
 
     while (true) {
@@ -21,10 +21,8 @@ var addTwoNumbers = function(l1, l2) {
         if (l1 !== null) l1 = l1.next;
         if (l2 !== null) l2 = l2.next;
 
-        // If we've reached the end of both lists and there's no carry left, we're done
         if (l1 === null && l2 === null && carry === 0) break;
 
-        // Prepare for the next iteration
         current.next = new ListNode();
         current = current.next;
     }
