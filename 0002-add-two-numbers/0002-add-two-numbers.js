@@ -1,4 +1,4 @@
-var addTwoNumbers = function(l1, l2) {
+function addTwoNumbers(l1, l2) {
     let carry = 0;
     let head = new ListNode();
     let current = head;
