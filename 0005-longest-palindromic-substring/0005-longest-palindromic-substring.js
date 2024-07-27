@@ -2,15 +2,6 @@ var longestPalindrome = function(s) {
     if (!s) {
         return "";
     }
-
-    function getPalindromeLength(s, left, right) {
-        while (left >= 0 && right < s.length && s[left] === s[right]) {
-            left--;
-            right++;
-        }
-        return right - left - 1;
-    }
-
     let longestStart = 0;
     let longestEnd = 0;
 
@@ -26,6 +17,14 @@ var longestPalindrome = function(s) {
             longestEnd = center + Math.floor(currentMaxLength / 2);
         }
     }
-
     return s.substring(longestStart, longestEnd + 1);
 };
+
+
+function getPalindromeLength(s, left, right) {
+    while (left >= 0 && right < s.length && s[left] === s[right]) {
+        left--;
+        right++;
+    }
+    return right - left - 1;
+}
