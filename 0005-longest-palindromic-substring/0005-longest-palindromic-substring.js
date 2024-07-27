@@ -1,10 +1,9 @@
 var longestPalindrome = function(s) {
-    if (s.length < 2) return s;
+    if (!s) {
+        return "";
+    }
 
-    let start = 0, end = 0;
-
-    // Helper function to expand around the center
-    function expandAroundCenter(left, right) {
+    function getPalindromeLength(s, left, right) {
         while (left >= 0 && right < s.length && s[left] === s[right]) {
             left--;
             right++;
@@ -12,16 +11,21 @@ var longestPalindrome = function(s) {
         return right - left - 1;
     }
 
-    for (let i = 0; i < s.length; i++) {
-        let len1 = expandAroundCenter(i, i);       // Odd-length palindromes
-        let len2 = expandAroundCenter(i, i + 1);   // Even-length palindromes
-        let len = Math.max(len1, len2);
-        
-        if (len > end - start) {
-            start = i - Math.floor((len - 1) / 2);
-            end = i + Math.floor(len / 2);
+    let longestStart = 0;
+    let longestEnd = 0;
+
+    for (let center = 0; center < s.length; center++) {
+        // Check for odd-length palindromes centered at `center`
+        const oddPalindromeLength = getPalindromeLength(s, center, center);
+        // Check for even-length palindromes centered between `center` and `center + 1`
+        const evenPalindromeLength = getPalindromeLength(s, center, center + 1);
+        const currentMaxLength = Math.max(oddPalindromeLength, evenPalindromeLength);
+
+        if (currentMaxLength > longestEnd - longestStart) {
+            longestStart = center - Math.floor((currentMaxLength - 1) / 2);
+            longestEnd = center + Math.floor(currentMaxLength / 2);
         }
     }
 
-    return s.substring(start, end + 1);
+    return s.substring(longestStart, longestEnd + 1);
 };
